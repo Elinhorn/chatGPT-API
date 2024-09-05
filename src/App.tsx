@@ -3,6 +3,7 @@ import "./App.css";
 import { openaitest } from "./services/openAi";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
+import ChatBubble from "./components/chatBubble";
 
 function App() {
   const [textInput, setTextInput] = useState("");
@@ -59,14 +60,11 @@ function App() {
           {chatHistory.map((chat, index) => {
             if (chat.role !== "system")
               return (
-                //TODO: egen komponent
                 //TODO: stylea allt snyggt
-                <p
-                  key={index}
-                  className={chat.role === "user" ? "self-end" : "self-start"}
-                >
-                  {chat.content}
-                </p>
+                //TODO: fixa scroll
+                //TODO: gör chatrutan till komponent
+                //TODO: max width på chatbubblorna
+                <ChatBubble key={index} props={chat} />
               );
           })}
         </div>
