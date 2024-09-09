@@ -70,7 +70,7 @@ function App() {
       <div className="flex flex-col items-center justify-center gap-4 p-4 h-dvh w-dvw">
         <ScrollArea
           ref={chatWindowRef}
-          className="flex flex-col w-full h-full gap-3 p-4 overflow-y-auto border"
+          className="flex flex-col w-full h-full gap-3 p-4 overflow-y-auto border rounded-md"
         >
           {chatHistory.map((chat, index) => {
             if (chat.role !== "system")
