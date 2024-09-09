@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { openaitest } from "./services/openAi";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import ChatBubble from "./components/chatBubble";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { useRef } from "react";
 
 function App() {
   const [textInput, setTextInput] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const chatWindowRef = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatHistory]);
 
   const getAI = async () => {
     let tempChat = [];
@@ -34,6 +41,7 @@ function App() {
     }
 
     setChatHistory(tempChat);
+    setTextInput("");
 
     const completion = await openaitest.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -49,26 +57,27 @@ function App() {
     ];
 
     setChatHistory(updatedChat);
+  };
 
-    setTextInput("");
+  const scrollToBottom = () => {
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
   };
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex flex-col gap-3 p-4 bg-slate-500 w-96 h-96">
+      <div className="flex flex-col items-center justify-center gap-4 p-4 h-dvh w-dvw">
+        <ScrollArea
+          ref={chatWindowRef}
+          className="flex flex-col w-full h-full gap-3 p-4 overflow-y-auto border"
+        >
           {chatHistory.map((chat, index) => {
             if (chat.role !== "system")
-              return (
-                //TODO: stylea allt snyggt
-                //TODO: fixa scroll
-                //TODO: gör chatrutan till komponent
-                //TODO: max width på chatbubblorna
-                <ChatBubble key={index} props={chat} />
-              );
+              return <ChatBubble key={index} props={chat} />;
           })}
-        </div>
-        <div className="flex">
+        </ScrollArea>
+        <div className="flex w-full gap-3 ">
           <Input
             type="text"
             value={textInput}
@@ -77,7 +86,9 @@ function App() {
             }}
           ></Input>
 
-          <Button onClick={getAI}>give me answer</Button>
+          <Button size={"xlg"} onClick={getAI}>
+            send
+          </Button>
         </div>
       </div>
     </>
