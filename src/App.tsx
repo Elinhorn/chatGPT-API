@@ -6,6 +6,7 @@ import { Input } from "./components/ui/input";
 import ChatBubble from "./components/chatBubble";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useRef } from "react";
+import MenuBar from "./components/menuBar";
 
 function App() {
   const [textInput, setTextInput] = useState("");
@@ -17,6 +18,11 @@ function App() {
   }, [chatHistory]);
 
   const getAI = async () => {
+    console.log(textInput);
+    if (!textInput.trim()) {
+      return;
+    }
+
     let tempChat = [];
 
     if (chatHistory.length === 0) {
@@ -65,9 +71,20 @@ function App() {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      getAI();
+    }
+  };
+
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-4 p-4 h-dvh w-dvw">
+      <div className="flex flex-col items-center justify-center gap-4 p-4 mx-auto h-dvh max-w-[80%]">
+        <header className="flex w-full ">
+          <MenuBar />
+        </header>
+
         <ScrollArea
           ref={chatWindowRef}
           className="flex flex-col w-full h-full gap-3 p-4 overflow-y-auto border rounded-md"
@@ -84,7 +101,8 @@ function App() {
             onChange={(e) => {
               setTextInput(e.currentTarget.value);
             }}
-          ></Input>
+            onKeyDown={handleKeyDown}
+          />
 
           <Button size={"xlg"} onClick={getAI}>
             send
