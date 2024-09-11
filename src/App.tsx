@@ -7,6 +7,7 @@ import ChatBubble from "./components/chatBubble";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useRef } from "react";
 import MenuBar from "./components/menuBar";
+import { ModeToggle } from "./components/mode-toggle";
 
 function App() {
   const [textInput, setTextInput] = useState("");
@@ -82,6 +83,7 @@ function App() {
     <>
       <div className="flex flex-col items-center justify-center gap-4 p-4 mx-auto h-dvh max-w-[80%]">
         <header className="flex w-full ">
+          <ModeToggle />
           <MenuBar />
         </header>
 
