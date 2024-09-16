@@ -1,8 +1,13 @@
 import { createContext, useContext, useState } from "react";
 
-const ColorContext = createContext();
+interface ColorProps {
+  color: string;
+  toggleColor: (newColor: string) => void;
+}
 
-const ColorProvider = ({ children }) => {
+const ColorContext = createContext<ColorProps>({} as ColorProps);
+
+const ColorProvider = ({ children }: { children: React.ReactNode }) => {
   const [color, setColor] = useState("bg-teal-400");
 
   const toggleColor = (newColor: string) => {

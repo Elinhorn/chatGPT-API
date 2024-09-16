@@ -1,7 +1,12 @@
 import { useColor } from "@/context/color-provider";
 import { Card } from "./ui/card";
+import { chatType } from "@/types/dataTypes";
 
-export default function ChatBubble({ props }) {
+interface CBProps {
+  props: chatType;
+}
+
+export default function ChatBubble({ props }: CBProps) {
   const { color } = useColor();
 
   return (
