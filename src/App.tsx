@@ -16,9 +16,15 @@ function App() {
   const [chatHistory, setChatHistory] = useState<chatType[] | null>([]);
   const chatWindowRef = useRef<HTMLDivElement>(null);
   const [loadingAnswer, setLoadingAnswer] = useState<boolean>(false);
+  const [seelocalStorage, setSeeLocalStorage] = useState<boolean>(false);
 
   useEffect(() => {
     scrollToBottom();
+    const getSavedChat = localStorage.getItem("chat");
+
+    if (getSavedChat) {
+      setSeeLocalStorage(true);
+    }
   }, [chatHistory]);
 
   const getAI = async () => {
@@ -68,7 +74,6 @@ function App() {
 
     setLoadingAnswer(false);
     setChatHistory(updatedChat);
-    console.log(updatedChat);
   };
 
   const scrollToBottom = () => {
@@ -87,7 +92,6 @@ function App() {
   function handleSaveChat() {
     const chat = JSON.stringify(chatHistory);
     localStorage.setItem("chat", chat);
-    console.log("saved");
   }
 
   function handleLoadChat() {
@@ -98,14 +102,27 @@ function App() {
     }
   }
 
+  function handleDeleteChat() {
+    localStorage.removeItem("chat");
+    setSeeLocalStorage(false);
+  }
+
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-4 p-4 mx-auto h-dvh max-w-[80%]">
         <header className="flex w-full ">
           <ModeToggle />
           <MenuBar />
-          <Button onClick={handleSaveChat}>Save chat</Button>
-          <Button onClick={handleLoadChat}>Load old chat</Button>
+          {chatHistory!.length >= 1 && (
+            <Button onClick={handleSaveChat}>Save chat</Button>
+          )}
+
+          {seelocalStorage && (
+            <>
+              <Button onClick={handleLoadChat}>Load old chat</Button>
+              <Button onClick={handleDeleteChat}>Delete old chat</Button>
+            </>
+          )}
         </header>
 
         <ScrollArea
