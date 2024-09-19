@@ -108,7 +108,7 @@ function App() {
   }
 
   return (
-    <>
+    <main>
       <div className="flex flex-col items-center justify-center gap-4 p-4 mx-auto h-dvh max-w-[80%]">
         <header className="flex w-full ">
           <ModeToggle />
@@ -116,7 +116,6 @@ function App() {
           {chatHistory!.length >= 1 && (
             <Button onClick={handleSaveChat}>Save chat</Button>
           )}
-
           {seelocalStorage && (
             <>
               <Button onClick={handleLoadChat}>Load old chat</Button>
@@ -124,7 +123,6 @@ function App() {
             </>
           )}
         </header>
-
         <ScrollArea
           ref={chatWindowRef}
           className="flex flex-col w-full h-full gap-3 p-4 overflow-y-auto border rounded-md"
@@ -144,13 +142,12 @@ function App() {
             }}
             onKeyDown={handleKeyDown}
           />
-
           <Button size={"xlg"} onClick={getAI}>
             send
           </Button>
         </div>
       </div>
-    </>
+    </main>
   );
 }
 
