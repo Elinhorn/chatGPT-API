@@ -4,7 +4,7 @@ This project is a simple web application that allows users to interact with Open
 
 ## Prep before clone the repo
 
-To use openAIs API you need to make a acount at openai.com and after that you need to make your own API key. You will gain credits for free in the beginning to use the API. Then i followed this [Guide](https://platform.openai.com/docs/quickstart).
+To use openAIs API you need to make a acount at openai.com and after that you need to make your own API key. You will gain credits for free in the beginning to use the API. I followed this [Guide](https://platform.openai.com/docs/quickstart).
 
 ## To run the app locally
 
