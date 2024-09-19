@@ -23,4 +23,6 @@ To use openAIs API you need to make a acount at openai.com and after that you ne
 - Tailwind
 - Shadcn/ui
 
-<span style="color: #DC4D01 ">NOTE: This project is not for deploying live on the internet, your API key is visible for dark lord developers if put it online. This projcet is just for me to try out Open AIs API. Happy coding!</span>
+### NOTE
+
+⚠️ This project is not for deploying live on the internet, your API key is visible for dark lord developers if put it online. This projcet is just for me to try out Open AIs API. Happy coding!
