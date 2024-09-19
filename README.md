@@ -14,7 +14,7 @@ To use openAIs API you need to make a acount at openai.com and after that you ne
 - npm i
 - npm run dev
 
-### Tech stack
+## Tech stack
 
 - ViteJS
 - React
